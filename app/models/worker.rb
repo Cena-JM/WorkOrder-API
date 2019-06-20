@@ -2,7 +2,7 @@
 
 # The worker model handles worker validations and associations
 class Worker < ApplicationRecord
-  has_many :assignments
+  has_many :assignments, dependent: :destroy
   has_many :work_orders, through: :assignments
 
   validates :name, presence: true, length: { maximum: 50 }
