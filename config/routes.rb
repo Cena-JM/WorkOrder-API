@@ -3,8 +3,7 @@ Rails.application.routes.draw do
     namespace 'v1' do
       resources :assignments
       resources :work_orders
-      resources :workers do
-      end
+      resources :workers
     end
   end
 end
