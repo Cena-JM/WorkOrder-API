@@ -5,18 +5,14 @@ module Api
     class AssignmentsController < ApplicationController
       def index
         @assignments = Assignment.all
-        render json: { status: 'SUCCESS',\
-                       message: 'Loaded assignments',\
-                       data: @assignments }, status: :ok
+        json_response(@assignments)
       end
 
       def show
         @assignment = Assignment.find(params[:id])
         @work_order = @assignment.work_order.title
         @worker = @assignment.worker.name
-        render json: { status: 'SUCCESS',\
-                       message: 'Loaded assignment',\
-                       data: [@assignment, @work_order, @worker] }, status: :ok
+        json_response([@assignment.id, @work_order, @worker])
       end
 
       def new
@@ -26,35 +22,22 @@ module Api
       def create
         @assignment = Assignment.create(assignment_params)
         if @assignment.save
-          render json: { status: 'SUCCESS',\
-                         message: 'Assignment saved',\
-                         data: @assignment }, status: :ok
+          json_response(@assignment, :created)
         else
-          render json: { status: 'ERROR',\
-                         message: 'Assignment not saved',\
-                         data: @assignment.errors }, status: :unprocessable_entity
+          json_response(@assignment, :unprocessable_entity)
         end
       end
 
       def destroy
         @assignment = Assignment.find(params[:id])
         @assignment.destroy
-        render json: { status: 'SUCCESS',\
-                       message: 'Assignment deleted',\
-                       data: @assignment }, status: :ok
+        head :no_content
       end
 
       def update
         @assignment = Assignment.find(params[:id])
-        if @assignment.update(assignment_params)
-          render json: { status: 'SUCCESS',\
-                         message: 'Assignment updated',\
-                         data: @assignment }, status: :ok
-        else
-          render json: { status: 'ERROR',\
-                         message: 'Assignment not updated',\
-                         data: @assignment.errors }, status: :unprocessable_entity
-        end
+        @assignment.update(assignment_params)
+        head :no_content
       end
 
       private

@@ -5,16 +5,12 @@ module Api
     class WorkOrdersController < ApplicationController
       def index
         @work_orders = WorkOrder.all
-        render json: { status: 'SUCCESS',\
-                       message: 'Loaded work_orders',\
-                       data: @work_orders }, status: :ok
+        json_response(@work_orders)
       end
 
       def show
         @work_order = WorkOrder.find(params[:id])
-        render json: { status: 'SUCCESS',\
-                       message: 'Loaded work_order',\
-                       data: @work_order }, status: :ok
+        json_response(@work_order)
       end
 
       def new
@@ -24,35 +20,22 @@ module Api
       def create
         @work_order = WorkOrder.create(work_order_params)
         if @work_order.save
-          render json: { status: 'SUCCESS',\
-                         message: 'Work order saved',\
-                         data: @work_order }, status: :ok
+          json_response(@work_order, :created)
         else
-          render json: { status: 'ERROR',\
-                         message: 'Work order not saved',\
-                         data: @work_order.errors }, status: :unprocessable_entity
+          json_response(@work_order, :unprocessable_entity)
         end
       end
 
       def destroy
         @work_order = WorkOrder.find(params[:id])
         @work_order.destroy
-        render json: { status: 'SUCCESS',\
-                       message: 'Work order deleted',\
-                       data: @work_order }, status: :ok
+        head :no_content
       end
 
       def update
         @work_order = WorkOrder.find(params[:id])
-        if @work_order.update(work_order_params)
-          render json: { status: 'SUCCESS',\
-                         message: 'Work order updated',\
-                         data: @work_order }, status: :ok
-        else
-          render json: { status: 'ERROR',\
-                         message: 'Work order not updated',\
-                         data: @work_order.errors }, status: :unprocessable_entity
-        end
+        @work_order.update(work_order_params)
+        head :no_content
       end
 
       private

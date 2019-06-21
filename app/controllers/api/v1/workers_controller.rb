@@ -5,17 +5,13 @@ module Api
     class WorkersController < ApplicationController
       def index
         @workers = Worker.all
-        render json: { status: 'SUCCESS',\
-                       message: 'Loaded workers',\
-                       data: @workers }, status: :ok
+        json_response(@workers)
       end
 
       def show
         @worker = Worker.find(params[:id])
         @work_orders = @worker.work_orders.order('deadline ASC')
-        render json: { status: 'SUCCESS',\
-                       message: 'Loaded worker',\
-                       data: [@worker, @work_orders] }, status: :ok
+        json_response([@worker, @work_orders])
       end
 
       def new
@@ -25,35 +21,22 @@ module Api
       def create
         @worker = Worker.create(worker_params)
         if @worker.save
-          render json: { status: 'SUCCESS',\
-                         message: 'Worker saved',\
-                         data: @worker }, status: :ok
+          json_response(@worker, :created)
         else
-          render json: { status: 'ERROR',\
-                         message: 'Worker not saved',\
-                         data: @worker.errors }, status: :unprocessable_entity
+          json_response(@worker, :unprocessable_entity)
         end
       end
 
       def destroy
         @worker = Worker.find(params[:id])
         @worker.destroy
-        render json: { status: 'SUCCESS',\
-                       message: 'Worker deleted',\
-                       data: @worker }, status: :ok
+        head :no_content
       end
 
       def update
         @worker = Worker.find(params[:id])
-        if @worker.update(worker_params)
-          render json: { status: 'SUCCESS',\
-                         message: 'Worker updated',\
-                         data: @worker }, status: :ok
-        else
-          render json: { status: 'ERROR',\
-                         message: 'Worker not updated',\
-                         data: @worker.errors }, status: :unprocessable_entity
-        end
+        @worker.update(worker_params)
+        head :no_content
       end
 
       private
