@@ -44,6 +44,12 @@ Next, migrate the database:
 
 ```
 $ rails db:migrate
+
+Next, seed database with sample data:
+
+```
+$ rails db:seed
+```
 ```
 
 Finally, run the server and have fun:
