@@ -9,20 +9,20 @@ by one or more workers. One or more workers are ‘assigned’ to an order. A ma
 
 ## Heroku version
 
-https://dashboard.heroku.com/apps/salty-lake-93985
+pending
 
 ## Requirements
 
-Ruby 2.6.2
-Postgresql 1.1.4
-Ruby on Rails 5.2.3
+-Ruby 2.6.2
+-Postgresql 1.1.4
+-Ruby on Rails 5.2.3
 
 ## Dependencies
 
-rspec-rails - Testing framework.
-factory_bot_rails - A fixtures replacement with a more straightforward syntax. You'll see.
-shoulda_matchers - Provides RSpec with additional matchers.
-database_cleaner - Cleans our test database to ensure a clean state in each test suite.
+rspec-rails - Testing framework.<br>
+factory_bot_rails - A fixtures replacement with a more straightforward syntax. You'll see.<br>
+shoulda_matchers - Provides RSpec with additional matchers.<br>
+database_cleaner - Cleans our test database to ensure a clean state in each test suite.<br>
 faker - A library for generating fake data. We'll use this to generate test data.
 
 ## How it works
