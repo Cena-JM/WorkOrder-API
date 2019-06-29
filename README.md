@@ -13,8 +13,8 @@ pending
 
 ## Requirements
 
--Ruby 2.6.2
--Postgresql 1.1.4
+-Ruby 2.6.2<br>
+-Postgresql 1.1.4<br>
 -Ruby on Rails 5.2.3
 
 ## Dependencies
